@@ -1,6 +1,6 @@
 package models
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.{ Inject, Singleton }
 import anorm.SqlParser.get
 import anorm._
 import org.joda.time.DateTime
@@ -30,25 +30,24 @@ class UserRepository @Inject() (DB: play.api.db.Database) {
     ret
   }*/
 
-
 }
 
 object UserRepository {
 
   val simple = {
     get[Option[Long]]("user_id") ~
-      get[String]("name")  map {
-      case user_id ~ name =>
-        User(user_id, name)
-    }
+      get[String]("name") map {
+        case user_id ~ name =>
+          User(user_id, name)
+      }
   }
 
 }
 
 case class User(
-                       userId: Option[Long],
-                       name: String
-                    )
+  userId: Option[Long],
+  name: String
+)
 
 object User {
   implicit val UserFormat = Json.format[User]

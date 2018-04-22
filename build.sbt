@@ -1,8 +1,19 @@
+import com.typesafe.sbt.SbtScalariform
 import play.sbt.PlayImport.jdbc
+import scalariform.formatter.preferences._
+import com.typesafe.sbt.SbtScalariform
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 
 name := """resla-backend"""
 
 version := "1.0-SNAPSHOT"
+
+SbtScalariform.scalariformSettings
+
+ScalariformKeys.preferences := ScalariformKeys.preferences.value
+  .setPreference(AlignSingleLineCaseStatements, true)
+  .setPreference(DoubleIndentClassDeclaration, true)
+  .setPreference(PreserveDanglingCloseParenthesis, true)
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 

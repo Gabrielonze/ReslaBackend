@@ -1,6 +1,6 @@
 package models
 
-import javax.inject.{Inject, Singleton}
+import javax.inject.{ Inject, Singleton }
 import anorm.SqlParser.get
 import anorm._
 import org.joda.time.DateTime
@@ -30,7 +30,6 @@ class DishRepository @Inject() (DB: play.api.db.Database) {
     ret
   }*/
 
-
 }
 
 object DishRepository {
@@ -41,20 +40,20 @@ object DishRepository {
       get[String]("name") ~
       get[String]("description") ~
       get[String]("image_url") map {
-      case dish_id ~ restaurant_id ~ name ~ description ~ image_url =>
-        Dish(dish_id, restaurant_id, name, description, image_url)
-    }
+        case dish_id ~ restaurant_id ~ name ~ description ~ image_url =>
+          Dish(dish_id, restaurant_id, name, description, image_url)
+      }
   }
 
 }
 
 case class Dish(
-                 dishId: Option[Long],
-                 restaurantId: Long,
-                 name: String,
-                 description: String,
-                 imageUrl: String
-               )
+  dishId: Option[Long],
+  restaurantId: Long,
+  name: String,
+  description: String,
+  imageUrl: String
+)
 
 object Dish {
   implicit val DishFormat = Json.format[Dish]
