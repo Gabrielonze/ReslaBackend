@@ -39,7 +39,7 @@ object BookRepository {
       get[Long]("restaurant_id") ~
       get[DateTime]("date") ~
       get[String]("status") ~
-      get[String]("rating") map {
+      get[BigDecimal]("rating") map {
         case book_id ~ restaurant_id ~ date ~ status ~ rating =>
           Book(book_id, restaurant_id, date, status, rating)
       }
@@ -52,7 +52,7 @@ case class Book(
   restaurantId: Long,
   date: DateTime,
   status: String,
-  rating: String
+  rating: BigDecimal
 )
 
 object Book {
