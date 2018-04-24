@@ -22,6 +22,12 @@ class BookRepository @Inject() (DB: play.api.db.Database) {
     ret
   }
 
+  def findRating(restaurantId: Long) = DB.withConnection { implicit connection =>
+    val ret = SQL("SELECT AVG(rating) FROM book WHERE restaurant_id = {restaurantId}").on('restaurantId -> restaurantId).as(SqlParser.scalar[BigDecimal].singleOpt)
+    connection.close()
+    ret
+  }
+
   /*def insert(perfumery: Perfumery) = DB.withConnection { implicit connection =>
     val ret = SQL("INSERT INTO book (product_id, presentation_id) values ({product_id}, {presentation_id})").
       on('product_id -> perfumery.productid, 'presentation_id -> perfumery.presentationid).
