@@ -5,6 +5,10 @@
 GET     /restaurants                controllers.RestaurantController.getRestaurants
 GET     /getDishes/:restaurantId    controllers.RestaurantController.getDishes(restaurantId: Long)
 
+GET     /books                      controllers.BookController.geBooks
+
+GET     /requests/:bookId            controllers.RestaurantController.getRestaurants(bookId: Long)
+
 GET     /userInfo                   controllers.CustumerController.getUser
 
 # Map static resources from the /public folder to the /assets URL path

@@ -3,6 +3,9 @@
 CREATE TABLE book(
   book_id SERIAL,
   restaurant_id BIGINT,
+  custumer_id BIGINT,
+  people_quantity INTEGER,
+  observation: VARCHAR(500),
   date TIMESTAMP,
   status VARCHAR(15),
   rating DECIMAL,

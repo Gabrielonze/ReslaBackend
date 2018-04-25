@@ -28,6 +28,12 @@ class RequestRepository @Inject() (DB: play.api.db.Database) {
     ret
   }
 
+  def findByBook(bookId: Long) = DB.withConnection { implicit connection =>
+    val ret = SQL("SELECT * FROM request WHERE book_id = {bookId}").on('bookId -> bookId).as(RequestRepository.simple *)
+    connection.close()
+    ret
+  }
+
   /*def insert(perfumery: Perfumery) = DB.withConnection { implicit connection =>
     val ret = SQL("INSERT INTO request (product_id, presentation_id) values ({product_id}, {presentation_id})").
       on('product_id -> perfumery.productid, 'presentation_id -> perfumery.presentationid).

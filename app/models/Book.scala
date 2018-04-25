@@ -22,6 +22,12 @@ class BookRepository @Inject() (DB: play.api.db.Database) {
     ret
   }
 
+  def findByCustumer(custumerId: Long) = DB.withConnection { implicit connection =>
+    val ret = SQL("SELECT * FROM book WHERE custumer_id = {custumerId} ORDER BY date DESC").on('custumerId -> custumerId).as(BookRepository.simple *)
+    connection.close()
+    ret
+  }
+
   def findRating(restaurantId: Long) = DB.withConnection { implicit connection =>
     val ret = SQL("SELECT AVG(rating) FROM book WHERE restaurant_id = {restaurantId}").on('restaurantId -> restaurantId).as(SqlParser.scalar[BigDecimal].singleOpt)
     connection.close()
@@ -43,11 +49,14 @@ object BookRepository {
   val simple = {
     get[Option[Long]]("book_id") ~
       get[Long]("restaurant_id") ~
+      get[Long]("custumer_id") ~
+      get[Int]("people_quantity") ~
+      get[Option[String]]("observation") ~
       get[DateTime]("date") ~
       get[String]("status") ~
       get[BigDecimal]("rating") map {
-        case book_id ~ restaurant_id ~ date ~ status ~ rating =>
-          Book(book_id, restaurant_id, date, status, rating)
+        case book_id ~ restaurant_id ~ custumer_id ~ people_quantity ~ observation ~ date ~ status ~ rating =>
+          Book(book_id, restaurant_id, custumer_id, people_quantity, observation, date, status, rating)
       }
   }
 
@@ -56,6 +65,9 @@ object BookRepository {
 case class Book(
   bookId: Option[Long],
   restaurantId: Long,
+  custumerId: Long,
+  people_quantity: Int,
+  observation: Option[String],
   date: DateTime,
   status: String,
   rating: BigDecimal
