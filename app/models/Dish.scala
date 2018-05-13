@@ -45,9 +45,11 @@ object DishRepository {
       get[Long]("restaurant_id") ~
       get[String]("name") ~
       get[String]("description") ~
-      get[String]("image_url") map {
-        case dish_id ~ restaurant_id ~ name ~ description ~ image_url =>
-          Dish(dish_id, restaurant_id, name, description, image_url)
+      get[String]("image_url") ~
+      get[BigDecimal]("price") ~
+      get[String]("category") map {
+        case dish_id ~ restaurant_id ~ name ~ description ~ image_url ~ price ~ category =>
+          Dish(dish_id, restaurant_id, name, description, image_url, price, category)
       }
   }
 
@@ -58,7 +60,9 @@ case class Dish(
   restaurantId: Long,
   name: String,
   description: String,
-  imageUrl: String
+  imageUrl: String,
+  price: BigDecimal,
+  category: String
 )
 
 object Dish {

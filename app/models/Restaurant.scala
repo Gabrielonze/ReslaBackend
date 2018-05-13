@@ -22,14 +22,6 @@ class RestaurantRepository @Inject() (DB: play.api.db.Database) {
     ret
   }
 
-  /*def insert(perfumery: Perfumery) = DB.withConnection { implicit connection =>
-    val ret = SQL("INSERT INTO restaurant (product_id, presentation_id) values ({product_id}, {presentation_id})").
-      on('product_id -> perfumery.productId, 'presentation_id -> perfumery.presentationId).
-      executeInsert(SqlParser.scalar[Long].singleOpt)
-    connection.close()
-    ret
-  }*/
-
 }
 
 object RestaurantRepository {
@@ -37,9 +29,10 @@ object RestaurantRepository {
   val simple = {
     get[Option[Long]]("restaurant_id") ~
       get[String]("name") ~
+      get[String]("image_url") ~
       get[String]("endereco") map {
-        case restaurant_id ~ name ~ endereco =>
-          Restaurant(restaurant_id, name, endereco)
+        case restaurant_id ~ name ~ image_url ~ endereco =>
+          Restaurant(restaurant_id, name, image_url, endereco)
       }
   }
 
@@ -48,6 +41,7 @@ object RestaurantRepository {
 case class Restaurant(
   restaurantId: Option[Long],
   name: String,
+  imageUrl: String,
   address: String
 )
 

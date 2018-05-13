@@ -5,11 +5,11 @@ CREATE TABLE book(
   restaurant_id BIGINT,
   custumer_id BIGINT,
   people_quantity INTEGER,
-  observation: VARCHAR(500),
+  observation VARCHAR(500),
   date TIMESTAMP,
   status VARCHAR(15),
   rating DECIMAL,
-  PRIMARY KEY(restaurant_id)
+  PRIMARY KEY(book_id)
 );
 
 CREATE TABLE dish(
@@ -18,6 +18,8 @@ CREATE TABLE dish(
   name VARCHAR(150),
   description TEXT,
   image_url TEXT,
+  price NUMERIC(13,2),
+  category VARCHAR(50),
   PRIMARY KEY(dish_id)
 );
 
@@ -32,6 +34,7 @@ CREATE TABLE request(
 CREATE TABLE restaurant(
   restaurant_id SERIAL,
   name VARCHAR(300),
+  image_url VARCHAR(500),
   endereco VARCHAR(500),
   PRIMARY KEY(restaurant_id)
 );

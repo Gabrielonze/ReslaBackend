@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 import play.api.mvc._
 
 @Singleton
-class RequestController @Inject()(requestDB: RequestRepository) extends Controller with SecurityController {
+class RequestController @Inject() (requestDB: RequestRepository) extends Controller with SecurityController {
 
   def getRequests(bookId: Long) = Action.async { implicit request =>
     check { u =>

@@ -5,6 +5,7 @@ import anorm.SqlParser.get
 import anorm._
 import org.joda.time.DateTime
 import play.api.libs.json.Json
+import anorm.JodaParameterMetaData._
 import scala.language.postfixOps
 
 @Singleton
@@ -34,13 +35,13 @@ class BookRepository @Inject() (DB: play.api.db.Database) {
     ret
   }
 
-  /*def insert(perfumery: Perfumery) = DB.withConnection { implicit connection =>
-    val ret = SQL("INSERT INTO book (product_id, presentation_id) values ({product_id}, {presentation_id})").
-      on('product_id -> perfumery.productid, 'presentation_id -> perfumery.presentationid).
+  def insert(b: Book) = DB.withConnection { implicit connection =>
+    val ret = SQL("INSERT INTO book (restaurant_id, custumer_id, people_quantity, observation, date, status) VALUES ({restaurant_id}, {custumer_id}, {people_quantity}, {observation}, {date}, {status})").
+      on('restaurant_id -> b.restaurantId, 'custumer_id -> b.custumerId, 'people_quantity -> b.people_quantity, 'observation -> b.observation, 'date -> b.date, 'status -> b.status).
       executeInsert(SqlParser.scalar[Long].singleOpt)
     connection.close()
     ret
-  }*/
+  }
 
 }
 
@@ -54,7 +55,7 @@ object BookRepository {
       get[Option[String]]("observation") ~
       get[DateTime]("date") ~
       get[String]("status") ~
-      get[BigDecimal]("rating") map {
+      get[Option[BigDecimal]]("rating") map {
         case book_id ~ restaurant_id ~ custumer_id ~ people_quantity ~ observation ~ date ~ status ~ rating =>
           Book(book_id, restaurant_id, custumer_id, people_quantity, observation, date, status, rating)
       }
@@ -70,7 +71,7 @@ case class Book(
   observation: Option[String],
   date: DateTime,
   status: String,
-  rating: BigDecimal
+  rating: Option[BigDecimal]
 )
 
 object Book {
