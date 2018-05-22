@@ -85,7 +85,7 @@ class RestaurantController @Inject() (
           FBadRequest(error)
         },
         pi => {
-          bookDB.insert(Book(None, pi.restautantId, 1, pi.peopleAmount, pi.observation, new DateTime(), "Novo", None)) match {
+          bookDB.insert(Book(None, pi.restautantId, 1, pi.peopleAmount, pi.observation, pi.day, "Novo", None)) match {
             case Some(a) => FOk(Json.obj("ok" -> true).toString)
             case _       => FBadRequest(Json.obj("ok" -> false).toString)
           }

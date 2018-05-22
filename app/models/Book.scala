@@ -3,9 +3,7 @@ package models
 import javax.inject.{ Inject, Singleton }
 import anorm.SqlParser.get
 import anorm._
-import org.joda.time.DateTime
 import play.api.libs.json.Json
-import anorm.JodaParameterMetaData._
 import scala.language.postfixOps
 
 @Singleton
@@ -53,7 +51,7 @@ object BookRepository {
       get[Long]("custumer_id") ~
       get[Int]("people_quantity") ~
       get[Option[String]]("observation") ~
-      get[DateTime]("date") ~
+      get[String]("date") ~
       get[String]("status") ~
       get[Option[BigDecimal]]("rating") map {
         case book_id ~ restaurant_id ~ custumer_id ~ people_quantity ~ observation ~ date ~ status ~ rating =>
@@ -69,7 +67,7 @@ case class Book(
   custumerId: Long,
   people_quantity: Int,
   observation: Option[String],
-  date: DateTime,
+  date: String,
   status: String,
   rating: Option[BigDecimal]
 )

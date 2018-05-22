@@ -6,7 +6,7 @@ CREATE TABLE book(
   custumer_id BIGINT,
   people_quantity INTEGER,
   observation VARCHAR(500),
-  date TIMESTAMP,
+  date VARCHAR(100),
   status VARCHAR(15),
   rating DECIMAL,
   PRIMARY KEY(book_id)
