@@ -1,9 +1,9 @@
-@(dishes: List[Dish])
+@(dishes: List[Dish], restaurantId: Long)
 @main("Dishes") {
 
 
     <h2>Pratos</h2>
-    <h5><a href="#">Novo Prato</a></h5>
+    <h5><a href="/newDish/@{restaurantId}">Novo Prato</a></h5>
 
     <table class="striped highlight responsive-table centered">
         <thead>
@@ -26,8 +26,8 @@
                     <td>@{d.price}</td>
                     <td>@{d.description}</td>
                     <td>
-                        <a href="#">Editar</a> -
-                        <a href="#">Apagar</a>
+                        <a href="/editDish/@{d.dishId.getOrElse(-1L)}">Editar</a> -
+                        <a href="/deleteDish/@{d.dishId.getOrElse(-1L)}">Apagar</a>
                     </td>
                 </tr>
             }

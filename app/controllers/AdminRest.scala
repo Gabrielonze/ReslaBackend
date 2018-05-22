@@ -38,14 +38,28 @@ class AdminRest @Inject() (requestDB: RequestRepository, dishDB: DishRepository,
   def getDishes(restaurantId: Long) = Action.async { implicit request =>
     check { u =>
       val dishes = dishDB.findByRestaurant(restaurantId)
-      FOk(views.html.dishes(dishes))
+      FOk(views.html.dishes(dishes, restaurantId))
     }
   }
 
-  def getDish(dishId: Long) = Action.async { implicit request =>
+  def editDish(dishId: Long) = Action.async { implicit request =>
     check { u =>
       val dish = dishDB.findByid(dishId).get
-      FOk("Json.toJson(dish).toString()")
+      FOk(views.html.dishForm(dish, "Editando Prato"))
+    }
+  }
+
+  def newDish(restaurantId: Long) = Action.async { implicit request =>
+    check { u =>
+      val dish = Dish(Some(-1L), restaurantId, "", "", "", BigDecimal(0), "")
+      FOk(views.html.dishForm(dish, "Novo Prato"))
+    }
+  }
+
+  def deleteDish(dishId: Long) = Action.async { implicit request =>
+    check { u =>
+      val dish = dishDB.delete(dishId)
+      FRedirect("/dishes/1")
     }
   }
 
@@ -59,11 +73,11 @@ class AdminRest @Inject() (requestDB: RequestRepository, dishDB: DishRepository,
         },
         pi => {
           pi.dishId match {
-            case Some(a) => dishDB.update(Dish(pi.dishId, pi.restaurantId, pi.name, pi.description, pi.imageUrl, pi.price, pi.category))
-            case _       => dishDB.insert(Dish(None, pi.restaurantId, pi.name, pi.description, pi.imageUrl, pi.price, pi.category))
+            case Some(-1L) => dishDB.insert(Dish(None, pi.restaurantId, pi.name, pi.description, pi.imageUrl, pi.price, pi.category))
+            case Some(_)   => dishDB.update(Dish(pi.dishId, pi.restaurantId, pi.name, pi.description, pi.imageUrl, pi.price, pi.category))
           }
 
-          FOk(Json.obj("ok" -> true).toString)
+          FRedirect(s"/dishes/${pi.restaurantId}")
         }
       )
     }

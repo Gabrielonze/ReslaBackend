@@ -1,0 +1,46 @@
+@(d: Dish, title: String)
+@main("Dishes") {
+
+    <h2>@title</h2>
+
+    <div class="row">
+        <form class="col s12" method="POST" action="/saveDish">
+            <input type="hidden" name="dishId" value="@{d.dishId.getOrElse(-1L)}">
+            <input type="hidden" name="restaurantId" value="@{d.restaurantId}">
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="name" name="name" type="text" value="@{d.name}" class="validate">
+                    <label for="name">Nome</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="price" type="text" name="price" value="@{d.price}" class="validate">
+                    <label for="price">Preço</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="imageUrl" type="text" name="imageUrl" value="@{d.imageUrl}" class="validate">
+                    <label for="imageUrl">Url da Imagem</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="category" type="text" name="category" value="@{d.category}" class="validate">
+                    <label for="category">Categoria</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="description" type="text" name="description" value="@{d.description}" class="validate">
+                    <label for="description">Descrição</label>
+                </div>
+            </div>
+
+            <button class="btn waves-effect waves-light btn-large" type="submit" name="action">
+                Enviar <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+
+}

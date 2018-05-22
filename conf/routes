@@ -14,7 +14,11 @@ GET     /userInfo                   controllers.CustumerController.getUser
 POST    /saveBook                   controllers.RestaurantController.saveBook
 
 
-GET     /admin/dishes/:restaurantId controllers.AdminRest.getDishes(restaurantId: Long)
+GET     /dishes/:restaurantId       controllers.AdminRest.getDishes(restaurantId: Long)
+GET     /newDish/:restaurantId      controllers.AdminRest.newDish(restaurantId: Long)
+GET     /deleteDish/:dishId         controllers.AdminRest.deleteDish(dishId: Long)
+GET     /editDish/:dishId           controllers.AdminRest.editDish(dishId: Long)
+POST    /saveDish                   controllers.AdminRest.saveDish()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
