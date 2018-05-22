@@ -13,5 +13,8 @@ GET     /userInfo                   controllers.CustumerController.getUser
 
 POST    /saveBook                   controllers.RestaurantController.saveBook
 
+
+GET     /admin/dishes/:restaurantId controllers.AdminRest.getDishes(restaurantId: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

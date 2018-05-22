@@ -9,6 +9,19 @@ import scala.language.postfixOps
 
 @Singleton
 class DishRepository @Inject() (DB: play.api.db.Database) {
+  def update(d: Dish) = DB.withConnection { implicit connection =>
+    val ret = SQL("UPDATE dish SET (restaurant_id, name, description, image_url, price, category) = ({restaurant_id}, {name}, {description}, {image_url}, {price}, {category}) WHERE dish_id = {dish_id}").
+      on('restaurant_id -> d.restaurantId, 'name -> d.name, 'description -> d.description, 'image_url -> d.imageUrl, 'price -> d.price, 'category -> d.category, 'dish_id -> d.dishId).executeInsert(SqlParser.scalar[Long].singleOpt)
+    connection.close()
+    ret
+  }
+
+  def insert(d: Dish) = DB.withConnection { implicit connection =>
+    val ret = SQL("INSERT INTO dish (restaurant_id, name, description, image_url, price, category) VALUES ({restaurant_id}, {name}, {description}, {image_url}, {price}, {category})").
+      on('restaurant_id -> d.restaurantId, 'name -> d.name, 'description -> d.description, 'image_url -> d.imageUrl, 'price -> d.price, 'category -> d.category).executeInsert(SqlParser.scalar[Long].singleOpt)
+    connection.close()
+    ret
+  }
 
   def findAll() = DB.withConnection { implicit connection =>
     val ret = SQL("SELECT * FROM dish").as(DishRepository.simple *)
