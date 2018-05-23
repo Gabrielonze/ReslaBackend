@@ -26,6 +26,8 @@ CREATE TABLE dish(
 CREATE TABLE request(
   request_id SERIAL,
   book_id BIGINT,
+  dish_id BIGINT,
+  quantity INT,
   status VARCHAR(15),
   rating DECIMAL,
   PRIMARY KEY(request_id)

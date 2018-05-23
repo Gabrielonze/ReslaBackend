@@ -1,0 +1,54 @@
+@(books: List[(Book, List[models.Request])], restaurantId: Long)
+@main("Reservas") {
+
+
+    <h2>Reservas</h2>
+
+    <div class="row">
+
+    @books.map { case (b, rs) =>
+
+    <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+            <p class="card-content white-text">
+
+                <span class="card-title">Data: <i>@b.date</i> -
+        Obs: <i>@b.observation</i> -
+        Status: <i>@b.status</i> -
+        @if(b.status != "Concluido"){<a>Marcar como Concluido</a>}</span>
+
+                <p><table class="striped highlight responsive-table centered">
+        @if(rs.nonEmpty) {
+            <thead>
+                <tr>
+                    <td style=" text-align: center;">ID da Reseva</td>
+                    <td style=" text-align: center;">ID do Prato</td>
+                    <td style=" text-align: center;">Quantidade</td>
+                    <td style=" text-align: center;">Status</td>
+                    <td style=" text-align: center;">Opções</td>
+                </tr>
+            </thead>
+        }
+        <tbody>
+        @rs.map { r =>
+            <tr>
+                <td>@{r.bookId}</td>
+                <td>@{r.dishId}</td>
+                <td>@{r.quantity}</td>
+                <td>@{r.status}</td>
+                <td>
+                    <a href="#">Em Andamento</a> -
+                    <a href="#">Entregue</a> -
+                    <a href="#">Cancelar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    </table></p>
+    </div></div>
+
+    }
+
+    </div>
+
+}

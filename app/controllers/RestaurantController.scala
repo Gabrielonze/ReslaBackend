@@ -67,7 +67,7 @@ class RestaurantController @Inject() (
 
       val books = bookDB.findByCustumer(1).flatMap { b =>
         restaurantDB.findById(b.restaurantId).map { re =>
-          Books(b.bookId, re.name, re.imageUrl, true, b.people_quantity)
+          Books(b.bookId, re.name, re.imageUrl, b.status == "Concluido", b.people_quantity)
         }
       }
 

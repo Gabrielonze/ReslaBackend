@@ -49,10 +49,12 @@ object RequestRepository {
   val simple = {
     get[Option[Long]]("request_id") ~
       get[Long]("book_id") ~
+      get[Long]("dish_id") ~
+      get[Int]("quantity") ~
       get[String]("status") ~
       get[BigDecimal]("rating") map {
-        case request_id ~ book_id ~ status ~ rating =>
-          Request(request_id, book_id, status, rating)
+        case request_id ~ book_id ~ dish_id ~ quantity ~ status ~ rating =>
+          Request(request_id, book_id, dish_id, quantity, status, rating)
       }
   }
 
@@ -61,6 +63,8 @@ object RequestRepository {
 case class Request(
   requestId: Option[Long],
   bookId: Long,
+  dishId: Long,
+  quantity: Int,
   status: String,
   rating: BigDecimal
 )

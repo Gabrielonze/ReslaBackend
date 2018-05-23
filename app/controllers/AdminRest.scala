@@ -31,7 +31,8 @@ class AdminRest @Inject() (requestDB: RequestRepository, dishDB: DishRepository,
         val req = requestDB.findByBook(b.bookId.get)
         (b, req)
       }
-      FOk("Json.toJson(books).toString()")
+
+      FOk(views.html.books(books, restaurantId))
     }
   }
 
@@ -75,6 +76,7 @@ class AdminRest @Inject() (requestDB: RequestRepository, dishDB: DishRepository,
           pi.dishId match {
             case Some(-1L) => dishDB.insert(Dish(None, pi.restaurantId, pi.name, pi.description, pi.imageUrl, pi.price, pi.category))
             case Some(_)   => dishDB.update(Dish(pi.dishId, pi.restaurantId, pi.name, pi.description, pi.imageUrl, pi.price, pi.category))
+            case _         =>
           }
 
           FRedirect(s"/dishes/${pi.restaurantId}")
