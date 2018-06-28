@@ -1,0 +1,37 @@
+@(dishes: List[Dish], restaurantId: Long)
+@main("Pratos") {
+
+
+    <h2>Pedidos</h2>
+    <h5><a href="/newDish/@{restaurantId}">Novo Prato</a></h5>
+
+    <table class="striped highlight responsive-table centered">
+        <thead>
+            <tr>
+                <td style=" text-align: center;">Images</td>
+                <td style=" text-align: center;">Nome</td>
+                <td style=" text-align: center;">Categoria</td>
+                <td style=" text-align: center;">Preço</td>
+                <td style=" text-align: center;">Descrição</td>
+                <td style=" text-align: center;">Opções</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @dishes.map{ d =>
+                <tr>
+                    <td><img src="@{d.imageUrl}" style="max-width: 100px;"/></td>
+                    <td>@{d.name}</td>
+                    <td>@{d.category}</td>
+                    <td>@{d.price}</td>
+                    <td>@{d.description}</td>
+                    <td>
+                        <a href="/editDish/@{d.dishId.getOrElse(-1L)}">Editar</a> -
+                        <a href="/deleteDish/@{d.dishId.getOrElse(-1L)}">Apagar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
