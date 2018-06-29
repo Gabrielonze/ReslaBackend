@@ -14,14 +14,14 @@
 
                 <span class="card-title" style="font-size: 15px;line-height: 1px;">
                     Data: <i>@b.date</i> <br/>
-                    @if(b.observation != ""){Obs: <i>@b.observation</i> <br/>}
+                    @if(b.observation.nonEmpty){Cliente: <i>@b.observation</i> <br/>}
                     Status: <i>@b.status</i> <br/>
                     @if(b.status != "Concluido"){<a>Marcar como Concluido</a>}</span>
 
                 <p><table class="striped highlight responsive-table centered">
         @if(rs.nonEmpty) {
             <hr/>
-            <span class="card-title" style="font-size: 15px;line-height: 1px;">
+            <span style="font-size: 15px;line-height: 1px; color: #FFFFFF; text-align: center">
                 Pedidos:</span>
             <thead>
                 <tr>
@@ -50,7 +50,7 @@
 
             @if(rs.isEmpty) {
                 <hr/>
-                <span class="card-title" style="font-size: 15px;line-height: 1px;">
+                <span style="font-size: 15px;line-height: 1px; color: #FFFFFF; text-align: center">
                 Reserva ainda sem pedidos</span>
             }
     </tbody>
