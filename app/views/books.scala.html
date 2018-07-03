@@ -9,16 +9,20 @@
     @books.map { case (b, rs) =>
 
     <div class="col s12 m6">
-        <div class="card blue-grey darken-1">
+        <div class="card grey darken-3">
             <p class="card-content white-text">
 
-                <span class="card-title">Data: <i>@b.date</i> -
-        Obs: <i>@b.observation</i> -
-        Status: <i>@b.status</i> -
-        @if(b.status != "Concluido"){<a>Marcar como Concluido</a>}</span>
+                <span class="card-title" style="font-size: 15px;line-height: 1px;">
+                    Data: <i>@b.date</i> <br/>
+                    @if(b.observation.nonEmpty){Cliente: <i>@b.observation</i> <br/>}
+                    Status: <i>@b.status</i> <br/>
+                    @if(b.status != "Concluido"){<a>Marcar como Concluido</a>}</span>
 
                 <p><table class="striped highlight responsive-table centered">
         @if(rs.nonEmpty) {
+            <hr/>
+            <span style="font-size: 15px;line-height: 1px; color: #FFFFFF; text-align: center">
+                Pedidos:</span>
             <thead>
                 <tr>
                     <td style=" text-align: center;">ID da Reseva</td>
@@ -43,6 +47,12 @@
                 </td>
             </tr>
         }
+
+            @if(rs.isEmpty) {
+                <hr/>
+                <span style="font-size: 15px;line-height: 1px; color: #FFFFFF; text-align: center">
+                Reserva ainda sem pedidos</span>
+            }
     </tbody>
     </table></p>
     </div></div>

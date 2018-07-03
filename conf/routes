@@ -2,25 +2,17 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /firstScreen                controllers.RestaurantController.firstScreen
+GET     /firstScreen                 controllers.RestaurantController.firstScreen
+GET     /getDishes/:restaurantId     controllers.RestaurantController.getDishes(restaurantId: Long)
+GET     /getRestaurant/:restaurantId controllers.RestaurantController.getRestaurant(restaurantId: Long)
+POST    /saveBook                    controllers.RestaurantController.saveBook
 
-GET     /getDishes/:restaurantId    controllers.RestaurantController.getDishes(restaurantId: Long)
-GET     /getRestaurant/:restaurantId    controllers.RestaurantController.getRestaurant(restaurantId: Long)
-
-GET     /books                      controllers.BookController.getBooks
-
-GET     /userInfo                   controllers.CustumerController.getUser
-
-POST    /saveBook                   controllers.RestaurantController.saveBook
-
-
-GET     /books/:restaurantId        controllers.AdminRest.getBooks(restaurantId: Long)
-
-GET     /dishes/:restaurantId       controllers.AdminRest.getDishes(restaurantId: Long)
-GET     /newDish/:restaurantId      controllers.AdminRest.newDish(restaurantId: Long)
-GET     /deleteDish/:dishId         controllers.AdminRest.deleteDish(dishId: Long)
-GET     /editDish/:dishId           controllers.AdminRest.editDish(dishId: Long)
-POST    /saveDish                   controllers.AdminRest.saveDish()
+GET     /books/:restaurantId         controllers.AdminRest.getBooks(restaurantId: Long)
+GET     /dishes/:restaurantId        controllers.AdminRest.getDishes(restaurantId: Long)
+GET     /newDish/:restaurantId       controllers.AdminRest.newDish(restaurantId: Long)
+GET     /deleteDish/:dishId          controllers.AdminRest.deleteDish(dishId: Long)
+GET     /editDish/:dishId            controllers.AdminRest.editDish(dishId: Long)
+POST    /saveDish                    controllers.AdminRest.saveDish()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                controllers.Assets.versioned(path="/public", file: Asset)
